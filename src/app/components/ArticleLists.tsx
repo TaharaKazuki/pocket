@@ -3,9 +3,17 @@ import { CiClock2 } from "react-icons/ci";
 import { FaRegHeart, FaArchive } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-import { articleData } from "../constants/articleData";
+import { extractUrlData } from "../actions/articles/extract-url-data";
 
 async function ArticleLists() {
+  const dataResult = await extractUrlData(
+    "https://yu-and-you.com/sigma1424mm/"
+  );
+
+  if (!dataResult.success) return <div>Error: {dataResult.error}</div>;
+
+  const data = dataResult.data;
+
   return (
     <div className="w-full px-4 lg:w-4/5">
       {/* タイトル */}
@@ -19,17 +27,17 @@ async function ArticleLists() {
             <div className="flex w-full flex-col md:w-3/5 lg:w-3/4">
               <div className="mb-4">
                 <h3 className="mb-1 text-lg font-bold md:text-xl">
-                  {articleData.title}
+                  {data.title}
                 </h3>
 
                 <span className="text-xs text-gray-400 md:text-sm">
-                  {articleData.siteName}
+                  {data.siteName}
                 </span>
               </div>
 
               <div className="mb-4">
                 <p className="line-clamp-3 text-base text-gray-700">
-                  {articleData.description}
+                  {data.description}
                 </p>
               </div>
             </div>
@@ -39,7 +47,7 @@ async function ArticleLists() {
               <div className="relative h-full w-full">
                 <Image
                   className="object-cover object-center md:object-contain md:object-top"
-                  src={articleData.thumbnail}
+                  src={data.thumbnail}
                   alt="サムネイル画像"
                   fill={true}
                   priority
@@ -52,7 +60,7 @@ async function ArticleLists() {
           <div className="mt-auto flex flex-col items-end justify-between md:flex-row">
             <div className="flex items-center">
               <CiClock2 className="mr-1" />
-              <span>{articleData.siteUpdatedAt}</span>
+              <span>{data.siteUpdatedAt}</span>
             </div>
 
             <div className="relative z-20 mt-2 md:mt-6">
