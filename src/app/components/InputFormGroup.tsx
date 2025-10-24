@@ -1,9 +1,16 @@
+import { extractUrlData } from "../actions/articles/extract-url-data";
+
 function InputFormGroup() {
+  const handleInput = async (formData: FormData) => {
+    const articleData = await extractUrlData(formData);
+    console.info("取得データ", articleData);
+  };
+
   return (
     <div className="relative flex w-3/5 items-center gap-3">
       <div className="flex w-full items-center gap-3">
         {/* インプットフォーム */}
-        <form className="flex flex-1 gap-3">
+        <form action={handleInput} className="flex flex-1 gap-3">
           <input
             type="text"
             name="url"

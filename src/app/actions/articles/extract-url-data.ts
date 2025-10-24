@@ -55,9 +55,12 @@ function getMetaContent(document: Document, property: string): string {
 
 // ヘルパー関数: ページの本文コンテンツを取得
 function getContent(document: Document): string {
-  const element = CONTENT_SELECTORS.reduce<Element | null>((found, selector) => {
-    return found || document.querySelector(selector);
-  }, null);
+  const element = CONTENT_SELECTORS.reduce<Element | null>(
+    (found, selector) => {
+      return found || document.querySelector(selector);
+    },
+    null
+  );
 
   if (!element) {
     return "";
@@ -73,8 +76,10 @@ function getContent(document: Document): string {
 
 // メイン関数: URLからメタデータを抽出
 export async function extractUrlData(
-  url: string
+  formData: FormData
 ): Promise<ExtractUrlDataResult> {
+  const url = formData.get("url") as string;
+
   try {
     // URLのバリデーション
     const parsedUrl = new URL(url);

@@ -3,12 +3,25 @@ import { CiClock2 } from "react-icons/ci";
 import { FaRegHeart, FaArchive } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-import { extractUrlData } from "../actions/articles/extract-url-data";
+// import { extractUrlData } from "../actions/articles/extract-url-data";
 
 async function ArticleLists() {
-  const dataResult = await extractUrlData(
-    "https://yu-and-you.com/sigma1424mm/"
-  );
+  // const dataResult = await extractUrlData(
+  //   "https://yu-and-you.com/sigma1424mm/"
+  // );
+
+  const dataResult = {
+    success: false,
+    data: {
+      title: "オブジェクトのタイトル",
+      siteName: "サイトの名前",
+      description: "オブジェクトから読み込んだデスクリプション",
+      siteUpdatedAt: "2025-6-25",
+      thumbnail: "/images/sampleImage2.jpg",
+      url: "https://yu-and-you.com/sigma1424mm/",
+      content: "オブジェクトから取ったコンテント",
+    },
+  };
 
   if (!dataResult.success)
     return (
