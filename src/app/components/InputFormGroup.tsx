@@ -1,9 +1,16 @@
+"use client";
+
 import { extractUrlData } from "../actions/articles/extract-url-data";
+import { saveArticle } from "../actions/articles/save-article";
 
 function InputFormGroup() {
   const handleInput = async (formData: FormData) => {
     const articleData = await extractUrlData(formData);
-    console.info("取得データ", articleData);
+
+    const userId = "temp-user-123";
+    if (articleData.success) {
+      await saveArticle(articleData.data, userId);
+    }
   };
 
   return (
