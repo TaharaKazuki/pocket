@@ -10,7 +10,10 @@ async function ArticleLists() {
     "https://yu-and-you.com/sigma1424mm/"
   );
 
-  if (!dataResult.success) return <div>Error: {dataResult.error}</div>;
+  if (!dataResult.success)
+    return (
+      <div className="w-full text-center">データを取得できませんでした。</div>
+    );
 
   const data = dataResult.data;
 
@@ -60,7 +63,9 @@ async function ArticleLists() {
           <div className="mt-auto flex flex-col items-end justify-between md:flex-row">
             <div className="flex items-center">
               <CiClock2 className="mr-1" />
-              <span>{data.siteUpdatedAt}</span>
+              <span>
+                {new Date(data.siteUpdatedAt).toLocaleDateString("sv-SE")}
+              </span>
             </div>
 
             <div className="relative z-20 mt-2 md:mt-6">
