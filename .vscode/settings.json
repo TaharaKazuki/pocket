@@ -29,5 +29,5 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "cSpell.words": ["KHTML", "turbopack"]
+  "cSpell.words": ["cuid", "KHTML", "turbopack"]
 }
