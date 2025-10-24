@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 interface MobileLayoutProps {
   children: React.ReactNode;
@@ -50,10 +51,10 @@ export default function MobileLayout({ children }: MobileLayoutProps) {
             onClick={closeSidebar}
           />
         )}
-        {/* <Sidebar
+        <Sidebar
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
-        /> */}
+        />
         {children}
       </div>
     </div>

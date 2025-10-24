@@ -39,7 +39,7 @@ async function ArticleLists() {
             </div>
 
             {/* 右側 （サムネ）*/}
-            <div className="pointer-events-none aspect-[16/9] w-full md:aspect-[3/2] md:w-2/5 lg:w-1/4">
+            <div className="pointer-events-none aspect-video w-full md:aspect-3/2 md:w-2/5 lg:w-1/4">
               <div className="relative h-full w-full">
                 <Image
                   className="object-cover object-center md:object-contain md:object-top"
