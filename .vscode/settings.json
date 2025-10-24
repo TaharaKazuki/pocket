@@ -28,5 +28,6 @@
   // File associations
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "cSpell.words": ["KHTML", "turbopack"]
 }
