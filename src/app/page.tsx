@@ -1,7 +1,10 @@
+import ArticleLists from "./components/ArticleLists";
+import MobileLayout from "./components/MobileLayout";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <MobileLayout>
+      <ArticleLists />
+    </MobileLayout>
   );
 }
