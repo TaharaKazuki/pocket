@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FormMessage from "./FormMessage";
 import { extractUrlData } from "../actions/articles/extract-url-data";
@@ -8,6 +8,15 @@ import { saveArticle } from "../actions/articles/save-article";
 
 function InputFormGroup() {
   const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    if (error) {
+      const timeoutId = setTimeout(() => {
+        setError("");
+      }, 3000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [error]);
 
   const handleInput = async (formData: FormData) => {
     try {
