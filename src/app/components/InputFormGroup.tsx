@@ -1,19 +1,27 @@
 "use client";
 
+import { useState } from "react";
+
+import FormMessage from "./FormMessage";
 import { extractUrlData } from "../actions/articles/extract-url-data";
 import { saveArticle } from "../actions/articles/save-article";
 
 function InputFormGroup() {
+  const [error, setError] = useState<string>("");
+
   const handleInput = async (formData: FormData) => {
     try {
       const articleData = await extractUrlData(formData);
-
       const userId = "temp-user-123";
       if (articleData.success) {
-        const _result = await saveArticle(articleData.data, userId);
+        const result = await saveArticle(articleData.data, userId);
+        if (!result.success) {
+          setError(result.errorMessage || "予期しないエラーが発生しました。");
+        }
       }
     } catch (error) {
       console.error("記事の保存に失敗しました。", error);
+      setError("予期しないエラーが発生しました。");
     }
   };
 
@@ -36,6 +44,8 @@ function InputFormGroup() {
           </button>
         </form>
       </div>
+
+      {error && <FormMessage error={error} />}
     </div>
   );
 }
