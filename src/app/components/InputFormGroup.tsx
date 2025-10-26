@@ -5,11 +5,15 @@ import { saveArticle } from "../actions/articles/save-article";
 
 function InputFormGroup() {
   const handleInput = async (formData: FormData) => {
-    const articleData = await extractUrlData(formData);
+    try {
+      const articleData = await extractUrlData(formData);
 
-    const userId = "temp-user-123";
-    if (articleData.success) {
-      await saveArticle(articleData.data, userId);
+      const userId = "temp-user-123";
+      if (articleData.success) {
+        const _result = await saveArticle(articleData.data, userId);
+      }
+    } catch (error) {
+      console.error("記事の保存に失敗しました。", error);
     }
   };
 
