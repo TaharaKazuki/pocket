@@ -48,14 +48,20 @@ async function ArticleLists() {
               {/* 右側 （サムネ）*/}
               <div className="pointer-events-none aspect-video w-full md:aspect-3/2 md:w-2/5 lg:w-1/4">
                 <div className="relative h-full w-full">
-                  <Image
-                    className="object-cover object-center md:object-contain md:object-top"
-                    src={article.thumbnail || "/placeholder.png"}
-                    alt="サムネイル画像"
-                    fill={true}
-                    priority
-                    sizes="300px"
-                  />
+                  {article.thumbnail ? (
+                    <Image
+                      className="object-cover object-center md:object-contain md:object-top"
+                      src={article.thumbnail}
+                      alt="サムネイル画像"
+                      fill={true}
+                      priority
+                      sizes="300px"
+                    />
+                  ) : (
+                    <div className="flex h-40 w-full items-center justify-center rounded bg-gray-200">
+                      <span>サムネイル画像なし</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
