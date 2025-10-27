@@ -54,7 +54,7 @@ function ArticleCard({ article }: ArticleCardProps) {
 
         {/* アイコン */}
         <div className="relative z-20 mt-2 md:mt-6">
-          <CardIcons />
+          <CardIcons article={article} />
         </div>
       </div>
     </div>
