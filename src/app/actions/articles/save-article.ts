@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import prisma from "@/lib/prisma";
 
 import { checkUrlExist } from "./checkUrlExist";
@@ -34,6 +36,9 @@ export async function saveArticle(
         ...articleData,
       },
     });
+
+    revalidatePath("/");
+
     return {
       success: true,
       errorMessage: undefined,
