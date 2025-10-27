@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { urlRegistrationSchema } from "@/lib/validations/urlRegistrationSchema";
 
 import FormMessage from "./FormMessage";
+import { extractUrlData } from "../actions/articles/extract-url-data";
+import { saveArticle } from "../actions/articles/save-article";
 
 function InputFormGroup() {
   const [error, setError] = useState<string>("");
@@ -29,6 +31,22 @@ function InputFormGroup() {
           .join(", ");
         setError(errorMessage);
         return;
+      }
+
+      // URL検証成功後、記事データを取得
+      const articleData = await extractUrlData(formData);
+
+      if (!articleData.success) {
+        setError(articleData.error);
+        return;
+      }
+
+      // 記事を保存
+      const userId = "temp-user-123";
+      const saveResult = await saveArticle(articleData.data, userId);
+
+      if (!saveResult.success) {
+        setError(saveResult.errorMessage || "記事の保存に失敗しました。");
       }
     } catch (error) {
       console.error("記事の保存に失敗しました。", error);
