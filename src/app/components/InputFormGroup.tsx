@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
+import { urlRegistrationSchema } from "@/lib/validations/urlRegistrationSchema";
+
 import FormMessage from "./FormMessage";
-import { extractUrlData } from "../actions/articles/extract-url-data";
-import { saveArticle } from "../actions/articles/save-article";
 
 function InputFormGroup() {
   const [error, setError] = useState<string>("");
@@ -20,13 +20,15 @@ function InputFormGroup() {
 
   const handleInput = async (formData: FormData) => {
     try {
-      const articleData = await extractUrlData(formData);
-      const userId = "temp-user-123";
-      if (articleData.success) {
-        const result = await saveArticle(articleData.data, userId);
-        if (!result.success) {
-          setError(result.errorMessage || "予期しないエラーが発生しました。");
-        }
+      const url = formData.get("url") as string;
+      const validationResult = urlRegistrationSchema.safeParse({ url });
+
+      if (!validationResult.success) {
+        const errorMessage = validationResult.error.issues
+          .map((issue) => issue.message)
+          .join(", ");
+        setError(errorMessage);
+        return;
       }
     } catch (error) {
       console.error("記事の保存に失敗しました。", error);
