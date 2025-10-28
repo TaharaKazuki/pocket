@@ -1,10 +1,18 @@
 import ArticleLists from "./components/ArticleLists";
 import MobileLayout from "./components/MobileLayout";
 
-export default function Home() {
+interface HomeProps {
+  searchParams: Promise<{
+    listtype?: string;
+  }>;
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const params = await searchParams;
+
   return (
     <MobileLayout>
-      <ArticleLists />
+      <ArticleLists params={params} />
     </MobileLayout>
   );
 }

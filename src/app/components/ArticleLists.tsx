@@ -1,8 +1,24 @@
+import { getPageTitle } from "@/lib/getPageTitle";
+import { getWhereCondition } from "@/lib/getWhereCondition";
+
 import ArticleCard from "./ArticleCard";
 import { getArticles } from "../actions/articles/get-articles";
 
-async function ArticleLists() {
-  const dataResult = await getArticles();
+interface ArticleListsProps {
+  params: {
+    listtype?: string;
+  };
+}
+
+async function ArticleLists({ params }: ArticleListsProps) {
+  const listType = params.listtype || "default";
+
+  const userId = "temp-user-123";
+  const whereCondition = getWhereCondition(listType, userId);
+
+  const dataResult = await getArticles(whereCondition);
+
+  const pageTitle = getPageTitle(listType);
 
   if (!dataResult.success)
     return (
@@ -12,7 +28,7 @@ async function ArticleLists() {
   return (
     <div className="w-full px-4 lg:w-4/5">
       <div className="mb-4 flex justify-between">
-        <h2 className="text-4xl font-bold">記事一覧</h2>
+        <h2 className="text-4xl font-bold">{pageTitle}</h2>
       </div>
       <hr />
       <div className="flex flex-col gap-4 p-4">

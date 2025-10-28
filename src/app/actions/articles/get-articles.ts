@@ -2,14 +2,16 @@
 
 import prisma from "@/lib/prisma";
 
-export async function getArticles() {
-  try {
-    const userId = "temp-user-123";
+interface WhereCondition {
+  userId: string;
+  isLiked?: boolean;
+  isArchived?: boolean;
+}
 
+export async function getArticles(whereCondition: WhereCondition) {
+  try {
     const articles = await prisma.article.findMany({
-      where: {
-        userId,
-      },
+      where: whereCondition,
       orderBy: {
         createdAt: "desc",
       },
