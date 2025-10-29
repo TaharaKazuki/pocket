@@ -1,11 +1,7 @@
-import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 
+import { SidebarContent } from "./SidebarContent";
 import SidebarUserInfo from "./SidebarUserInfo";
-import {
-  type FilterItemInterface,
-  filterItems,
-} from "../constants/filterItems";
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -19,23 +15,8 @@ function Sidebar({ isSidebarOpen }: SidebarProps) {
         isSidebarOpen ? "translate-x-0" : "translate3d(0,0,0) -translate-x-full"
       } flex transform flex-col transition-transform duration-200 ease-out will-change-transform lg:translate-x-0`}
     >
-      <div className="mb-10 overflow-y-auto">
-        <div className="pt-4 pl-4 lg:p-0">
-          <h2 className="mb-8 text-3xl font-bold lg:text-2xl">フィルター</h2>
-          <ul className="flex flex-col gap-6 pl-4">
-            {filterItems.map((item: FilterItemInterface) => (
-              <li key={item.id}>
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-3 text-xl"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      {/* メインコンテンツエリア（スクロール対象） */}
+      <SidebarContent />
 
       <SidebarUserInfo />
     </section>
